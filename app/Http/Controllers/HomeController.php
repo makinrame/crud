@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         //dd($request->keyword);
         if ($request->has('keyword')){
-            $kontaks = \App\kontak::where('nama','like','%'.$request->keyword.'%')->get();
+            $kontaks = \App\Kontak::where('nama','like','%'.$request->keyword.'%')->get();
             return view('cari',compact('kontaks'));
         }
         
@@ -35,7 +35,8 @@ class HomeController extends Controller
             
 
        // }
-        $kontaks = \App\kontak::all();
+        $kontaks = \App\Kontak::all();
+        $kontaks = \App\Kontak::paginate(10);
         return view('home',compact('kontaks'));
 
 

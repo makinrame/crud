@@ -55,7 +55,7 @@
 
 
                     </table>
-
+                        {{$kontaks->links()}}
                 </div>
             </div>
         </div>
