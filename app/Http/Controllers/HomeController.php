@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Redirect;
+use App\Kontak;
 
 class HomeController extends Controller
 {
@@ -24,22 +24,12 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        //dd($request->keyword);
-        if ($request->has('keyword')){
-            $kontaks = \App\Kontak::where('nama','like','%'.$request->keyword.'%')->get();
-            return view('cari',compact('kontaks'));
+        if ($request->has('keyword')) {
+            $kontaks = Kontak::where('nama', 'like', '%'.$request->keyword.'%')->paginate(10);
+        } else {
+            $kontaks = Kontak::paginate(10);
         }
-        
-       // else{
-           // $kontaks = \App\kontak::all();
-            
 
-       // }
-        $kontaks = \App\Kontak::all();
-        $kontaks = \App\Kontak::paginate(10);
-        return view('home',compact('kontaks'));
-
-
-
+        return view('home', compact('kontaks'));
     }
 }
